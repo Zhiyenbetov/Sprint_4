@@ -60,7 +60,7 @@ public class FrequentQuestionsTest extends AbstractUiTestParent {
     }
 
     @Test
-    public void checkAnswersForQuestions() {
+    public void checkAnswersForQuestions() throws InterruptedException {
         driver.get("https://qa-scooter.praktikum-services.ru/");
 
         FrequentQuestionsPageObject frequentQuestionsPageObject = new FrequentQuestionsPageObject(driver);

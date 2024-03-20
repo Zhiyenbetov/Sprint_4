@@ -2,9 +2,9 @@ package pageobject;
 
 import config.SeleniumConstants;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,18 +28,19 @@ public class FrequentQuestionsPageObject {
         this.driver = driver;
     }
 
-    public String getAnswerFor(String question) {
+    public String getAnswerFor(String question) throws InterruptedException {
         List<WebElement> questionElements = driver.findElements(frequentQuestionsLocator);
 
         for (WebElement questionElement : questionElements) {
 
             if (questionElement.getText().contains(question)) {
 
-                // Скролл до вопроса. Дальше нужно еще прокрутить на 200-300 пикселей, чтобы баннер про куки не перехватил клик.
-                Actions scrollToQuestion = new Actions(driver);
-                scrollToQuestion.scrollToElement(questionElement);
-                scrollToQuestion.scrollByAmount(0, 300);
-                scrollToQuestion.build().perform();
+                ((JavascriptExecutor) driver).executeScript(
+                        "arguments[0].scrollIntoView({ behaviour: \"instant\", block: \"center\" });",
+                        questionElement
+                );
+
+                Thread.sleep(300);
 
                 questionElement.click();
                 WebElement questionElementContainer = questionElement.findElement(questionElementContainerLocator);
