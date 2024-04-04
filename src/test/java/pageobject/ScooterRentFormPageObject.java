@@ -75,9 +75,14 @@ public class ScooterRentFormPageObject {
         WebElement scooterColorContainerElement = driver.findElement(scooterColorContainerLocator);
 
         switch (color) {
-            case "чёрный жемчуг" -> scooterColorContainerElement.findElement(scooterBlackColorLocator).click();
-            case "серая безысходность" -> scooterColorContainerElement.findElement(scooterGreyColorLocator).click();
-            default -> throw new IllegalArgumentException("Нет такого цвета самоката: " + color + "!");
+            case "чёрный жемчуг":
+                scooterColorContainerElement.findElement(scooterBlackColorLocator).click();
+                break;
+            case "серая безысходность":
+                scooterColorContainerElement.findElement(scooterGreyColorLocator).click();
+                break;
+            default:
+                throw new IllegalArgumentException("Нет такого цвета самоката: " + color + "!");
         }
     }
 
